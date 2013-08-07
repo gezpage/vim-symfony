@@ -84,6 +84,14 @@ au BufLeave *.xml    setlocal completefunc=oldcompletefunc
 " Open console
 let g:symfony_enable_shell_cmd = g:symfony_app_console_caller." ".g:symfony_app_console_path." -s"
 
+fun! SymfonyInteractiveShell()
+    let g:symfony_enable_shell_cmd = g:symfony_app_console_caller." ".g:symfony_app_console_path." -s"
+    exe ":! echo Waiting for Symfony2 Shell interactive ... && "g:symfony_enable_shell_cmd
+endfun
+
+set completefunc=CompleteSymfony
+
+" if default mapping
 if(g:symfony_enable_shell_mapping == 1)
-    map <C-F> :execute ":!"g:symfony_enable_shell_cmd<CR>
+    map <Leader>f :call SymfonyInteractiveShell()<CR>
 endif
